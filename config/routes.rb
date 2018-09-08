@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_scope :vendors
+  get 'home/index'
+  devise_for :vendors
   root "home#index"
 end

@@ -4,6 +4,7 @@ feature "vendor registers for site" do
 
   scenario "vendor registers" do
     visit root_path
+    click_link "Sign Up"
     expect(page).to have_text("Begin accepting payments")
     fill_in_registration_fields
     expect(page).to have_content("Welcome you have signed up successfully")
