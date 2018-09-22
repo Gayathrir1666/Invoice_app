@@ -3,13 +3,19 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  config.omniauth :stripe_connect,
+  ENV['stripe_connect_client_id'],
+  ENV['stripe_api_key'],
+  scope: 'read_write',
+  stripe_landing: 'register',
+  redirect_url: "http://localhost:3000/vendors/auth/stripe_connect"
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'e77486f052ef19422f79e51e3a185fa9ab37efbc9fa3be497ffe1d08560cb076abb8f811cb012352916f1fe53aaf95d680e87be253ab914689a77247ada3afeb'
-  
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
