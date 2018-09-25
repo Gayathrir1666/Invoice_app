@@ -10,7 +10,7 @@ class OmniauthCallbacksController < ApplicationController
       request.env["omniauth.auth"].info.stripe_publishable_key
     })
 
-      redirect_to root_path,notice: "Congrats on connecting your Stripe account!"
+      redirect_to stripe_connect_confirmation_path,notice: "Congrats on connecting your Stripe account!"
     else
       redirect_to connect_to_stripe_path, alert: "Please connect to strie before you can continue."
     end
