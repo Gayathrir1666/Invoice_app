@@ -17,7 +17,9 @@ feature "Vendor manages invoices" do
       click_button "CREATE INVOICE"
 
       expect(Invoice.count). to eq 1
-      expect(page).to have_content "Invoice successfully created!"
+      expect(page).to have_content "Invoice successfully created"
       expect(page).to have_content "INVOICES"
+      invoice = Invoice.last
+      expect(invoice.id_for_plan).to_not eq "awesome invoice"
     end
 end

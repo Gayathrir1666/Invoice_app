@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :authenticate_vendor!
-  
+
   def index
     @invoices = current_vendor.invoices
   end
@@ -12,6 +12,8 @@ class InvoicesController < ApplicationController
   def create
 
     @invoice = current_vendor.invoices.create(invoice_params)
+    response = create_stripe_plan(current_vendor, @invoice)
+    @invoice.id_for_plan = response.id
 
     respond_to do |format|
       if @invoice.save
@@ -27,5 +29,17 @@ class InvoicesController < ApplicationController
 
     def invoice_params
       params.require(:invoice).permit(:name, :description, :amount)
+    end
+
+    def create_stripe_plan(vendor,invoice)
+      plan = Stripe::Plan.create({
+        :amount => invoice.amount,
+        :interval => 'month',
+        :name => invoice.name,
+        :currency => 'usd',
+        :id => invoice.name},
+        {:stripe_account => vendor.stripe_uid}
+      )
+
     end
   end
