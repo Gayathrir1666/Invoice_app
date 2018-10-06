@@ -10,7 +10,7 @@ feature "vendor registers for site" do
     expect(page).to have_content("Welcome! You have signed up successfully")
   end
 
-  scenario "by connecting with Stripe" do    visit root_path
+  scenario "by connecting with Stripe" do visit root_path
     click_link "Sign Up"
     expect(page).to have_text("Begin accepting payments")
     fill_in_registration_fields
